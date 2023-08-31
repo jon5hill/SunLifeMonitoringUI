@@ -1,0 +1,1 @@
+SunLifeMonitoringUI is a Python app using tkinter to create a UI.  There is a file called SunLifeUI.exe which is a bundled .exe file with Python, the app code, and all dependencies included.  To run, execute the SunLifeUI.exe on a command line or double click on the SunLifeUI.exe file.
