@@ -71,30 +71,39 @@ def display_message(message, frame_header):
 
 def http_request(url, frame_header):
     print('Calling API with URL: {0} '.format(url))
-    response, content = httplib2.Http().request(url)
-    content_json = json.loads(content)
-    display_message(content_json, frame_header)
-    print(content_json["url"])
-    print(content_json["statusCode"])
-    print(content_json["duration"])
-    print(content_json["date"])
+    try:
+        response, content = httplib2.Http().request(url)
+        content_json = json.loads(content)
+        display_message(content_json, frame_header)
+        print(content_json["url"])
+        print(content_json["statusCode"])
+        print(content_json["duration"])
+        print(content_json["date"])
+    except:
+        error_json = {"url":url, "statusCode":"500", "duration":0, "date":int(time.time())}
+        display_message(error_json, frame_header)
 
 
 def http_request_all(url, frame_header3, frame_header4):
     print('Calling API with URL: {0} '.format(url))
-    response, content = httplib2.Http().request(url)
-    content_json = json.loads(content)
-    if content_json[0]["url"] == "https://www.amazon.com":
-        display_message(content_json[1], frame_header3)
-        display_message(content_json[0], frame_header4)
-    else:
-        display_message(content_json[0], frame_header3)
-        display_message(content_json[1], frame_header4)
-    for i in [0, 1]:
-        print(content_json[i]["url"])
-        print(content_json[i]["statusCode"])
-        print(content_json[i]["duration"])
-        print(content_json[i]["date"])
+    try:
+        response, content = httplib2.Http().request(url)
+        content_json = json.loads(content)
+        if content_json[0]["url"] == "https://www.amazon.com":
+            display_message(content_json[1], frame_header3)
+            display_message(content_json[0], frame_header4)
+        else:
+            display_message(content_json[0], frame_header3)
+            display_message(content_json[1], frame_header4)
+        for i in [0, 1]:
+            print(content_json[i]["url"])
+            print(content_json[i]["statusCode"])
+            print(content_json[i]["duration"])
+            print(content_json[i]["date"])
+    except:
+        error_json = {"url":url, "statusCode":"500", "duration":0, "date":int(time.time())}
+        display_message(error_json, frame_header3)
+        display_message(error_json, frame_header4)
 
 
 def repeat_calls(frame_header, frame_header1, frame_header2, frame_header3, frame_header4):
